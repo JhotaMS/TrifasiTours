@@ -6,21 +6,40 @@ namespace TrifasiTours.Application.Features.Users.CreateUser;
 internal sealed class UserCommandHandler( 
     UserService userService 
 ) : ICommandHandler<UserCommand, UserCommandResponse> {
-    
+
     public async Task<Result<UserCommandResponse>> Handle( UserCommand request
         , CancellationToken cancellationToken 
     ) {
-        Guid id = await userService
-            .CreateUserAsync(
-                User.Create(
-                    request.FirstName
-                    , request.SecondName
-                    , request.SurName
-                    , request.SecondSurName
-                )
-                , cancellationToken
+        try {
+            var user = User.Create(
+                request.FirstName,
+                request.SecondName,
+                request.SurName,
+                request.SecondSurName,
+                request.Age,
+                request.Email,
+                request.Password,
+                request.Document,
+                request.Role,
+                request.Enabled
             );
 
-        return new UserCommandResponse( id );
+            Guid id = await userService
+                .CreateUserAsync(
+                    user,
+                    cancellationToken
+                );
+
+            return Result.Success( new UserCommandResponse( id ) );
+        }
+        catch (InvalidOperationException ex) when (ex.Message.Contains("Email")) {
+            return Result.Failure<UserCommandResponse>( new TrifasiTours.Domain.Abstractions.Error("Error.DuplicateEmail","El email ya existe") );
+        }
+        catch (InvalidOperationException ex) when (ex.Message.Contains("Document")) {
+            return Result.Failure<UserCommandResponse>( new TrifasiTours.Domain.Abstractions.Error("Error.DuplicateDocument","El documento ya existe") );
+        }
+        catch (ArgumentException ex) {
+            return Result.Failure<UserCommandResponse>( new TrifasiTours.Domain.Abstractions.Error("Error.Validation","" + ex.Message) );
+        }
     }
 }

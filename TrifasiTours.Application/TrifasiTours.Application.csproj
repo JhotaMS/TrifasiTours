@@ -20,4 +20,8 @@
 		<ProjectReference Include="..\TrifasiTours.Infrastructure\TrifasiTours.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\Usuario\Command\" />
+	</ItemGroup>
+
 </Project>

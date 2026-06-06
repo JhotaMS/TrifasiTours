@@ -13,5 +13,10 @@ internal sealed class UserConfiguration
         builder.Property( property => property.SurName ).IsRequired( true );
         builder.Property( property => property.SecondSurName ).IsRequired( false );
         builder.Property( property => property.Enabled );
+        builder.Property( property => property.Age ).IsRequired( true );
+        builder.Property( property => property.Email ).IsRequired( true );
+        builder.Property( property => property.Password ).IsRequired( true );
+        builder.Property( property => property.Document ).IsRequired( true );
+        builder.Property( property => property.Role ).IsRequired( true );
     }
 }
