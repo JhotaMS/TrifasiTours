@@ -1,35 +1,38 @@
 ﻿using TrifasiTours.Domain.Ports;
 using TrifasiTours.Infrastructure.PostgreSql.Persistence;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace TrifasiTours.Infrastructure.PostgreSql.Adapters;
-internal sealed record class UnitOfWorkService : IUnitOfWork {
-    private Hashtable? _repositories;
+internal sealed class UnitOfWorkService : IUnitOfWork
+{
+    private readonly Dictionary<string, object> _repositories = new();
 
-    public UnitOfWorkService( ApplicationDbContext context ) => DbContext = context;
+    public UnitOfWorkService(ApplicationDbContext context) => DbContext = context ?? throw new ArgumentNullException(nameof(context));
 
     public ApplicationDbContext DbContext { get; }
 
-    public async ValueTask<int> SaveChangesAsync() {
-           var test =  await DbContext.SaveChangesAsync(new CancellationToken());
-        return test;
+    public async ValueTask<int> SaveChangesAsync()
+    {
+        return await DbContext.SaveChangesAsync();
     }
 
-    public void Dispose() {
+    public void Dispose()
+    {
         DbContext.Dispose();
     }
 
-    public IAsyncRepository<TEntity> Repository<TEntity>() where TEntity : class {
-        _repositories ??= [];
-        var type = typeof( TEntity ).Name;
+    public IAsyncRepository<TEntity> Repository<TEntity>() where TEntity : class
+    {
+        var type = typeof(TEntity).Name;
 
-        if (!_repositories.ContainsKey( type )) {
-            Type reporitoryType = typeof( RepositoryBaseService<> );
+        if (!_repositories.ContainsKey(type))
+        {
+            Type repositoryType = typeof(RepositoryBaseService<>);
 
             var repositoryInstance = Activator
-                .CreateInstance( reporitoryType.MakeGenericType( typeof( TEntity ) ), DbContext );
+                .CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), DbContext);
 
-            _repositories.Add( type, repositoryInstance );
+            _repositories.Add(type, repositoryInstance!);
         }
 
         return (IAsyncRepository<TEntity>)_repositories[type]!;

@@ -1,10 +1,11 @@
 ﻿namespace TrifasiTours.Application.Exceptions;
 
-public class NotFoundApplicationException : ApplicationException {
-    public NotFoundApplicationException(
-        string name,
-        object key
-    ) : base( $"Entity \"{name}\" ({key}) no fue encontrado" ) {
+public class NotFoundApplicationException : Exception
+{
+    public int StatusCode { get; } = 404;
 
+    public NotFoundApplicationException(string message)
+        : base(message)
+    {
     }
 }

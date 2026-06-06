@@ -33,8 +33,11 @@ public partial class ApplicationDbContext : DbContext {
         if (modelBuilder == null) {
             return;
         }
-
-        modelBuilder.HasDefaultSchema( _config.GetSection( "SchemaName" ).Value );
+        var schemaName = _config?.GetSection("SchemaName")?.Value;
+        if (!string.IsNullOrWhiteSpace(schemaName))
+        {
+            modelBuilder.HasDefaultSchema(schemaName);
+        }
         modelBuilder.ApplyConfigurationsFromAssembly( typeof( ApplicationDbContext ).Assembly );
         base.OnModelCreating( modelBuilder );
     }

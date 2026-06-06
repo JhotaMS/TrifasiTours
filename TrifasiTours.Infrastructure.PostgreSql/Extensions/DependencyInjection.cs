@@ -13,12 +13,37 @@ public static class DependencyInjection {
 
         string connectionString = configuration.GetConnectionString( "ConnectionString" )
             ?? throw new ArgumentNullException( nameof( configuration ) );
+        // Validate connection string and attempt a short-connect to provide a clearer error early
+        var csBuilder = new NpgsqlConnectionStringBuilder(connectionString);
+        try
+        {
+            using var testConn = new NpgsqlConnection(connectionString);
+            testConn.Open();
+            testConn.Close();
+        }
+        catch (PostgresException pex)
+        {
+            throw new InvalidOperationException(
+                $"Unable to authenticate to PostgreSQL host {csBuilder.Host}:{csBuilder.Port} with user '{csBuilder.Username}'. {pex.Message}",
+                pex);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException(
+                $"Unable to connect to PostgreSQL host {csBuilder.Host}:{csBuilder.Port}. {ex.Message}",
+                ex);
+        }
+
+        // Enable sensitive data logging only in Development to avoid leaking secrets in logs
+        var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        bool isDevelopment = string.Equals(env, "Development", StringComparison.OrdinalIgnoreCase);
 
         services.AddDbContext<ApplicationDbContext>( options => {
-            options
-                .UseNpgsql( connectionString );
-            //.UseSnakeCaseNamingConvention();
-            options.EnableSensitiveDataLogging();
+            options.UseNpgsql( connectionString );
+            if (isDevelopment)
+            {
+                options.EnableSensitiveDataLogging();
+            }
         } );
         services.AddScoped<IJsonConfiguration, JsonConfiguration>();
         services.AddTransient<IDbConnection>( privider => new NpgsqlConnection( connectionString ) );
