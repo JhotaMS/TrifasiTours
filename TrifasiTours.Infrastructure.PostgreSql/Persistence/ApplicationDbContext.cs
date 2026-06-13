@@ -1,6 +1,7 @@
 ﻿using TrifasiTours.Domain.Users;
 using TrifasiTours.Domain.WeatherForecasts;
 using TrifasiTours.Domain.WeatherForecastsHistories;
+using TrifasiTours.Domain.Packages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -21,6 +22,7 @@ public partial class ApplicationDbContext : DbContext {
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<WeatherForecast> WeatherForecasts { get; set; }
     public virtual DbSet<WeatherForecastsHistory> WeatherForecastsHistories { get; set; }
+    public virtual DbSet<Package> Packages { get; set; }
 
     public override Task<int> SaveChangesAsync( CancellationToken cancellationToken = default ) {
         return base.SaveChangesAsync( cancellationToken );
