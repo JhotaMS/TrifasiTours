@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using TrifasiTours.Application.Features.Usuario.Queries.GetHello;
 using TrifasiTours.Application.Messaging;
 
