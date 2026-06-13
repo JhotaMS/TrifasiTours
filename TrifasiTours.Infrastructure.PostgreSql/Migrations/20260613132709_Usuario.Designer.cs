@@ -12,8 +12,8 @@ using TrifasiTours.Infrastructure.PostgreSql.Persistence;
 namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240716041359_v1-0-0")]
-    partial class v100
+    [Migration("20260613132709_Usuario")]
+    partial class Usuario
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,17 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Document")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<bool>("Enabled")
                         .HasColumnType("boolean");
 
@@ -39,14 +50,15 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("SecondName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("SecondSurName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("SurName")
+                    b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SecondName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
