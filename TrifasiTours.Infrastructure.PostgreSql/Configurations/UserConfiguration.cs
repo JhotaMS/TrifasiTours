@@ -6,6 +6,7 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Configurations;
 internal sealed class UserConfiguration
     : IEntityTypeConfiguration<User> {
     public void Configure( EntityTypeBuilder<User> builder ) {
+<<<<<<< HEAD
         builder.ToTable( "Usuarios" );
         builder.HasKey( key => key.Id );
         builder.Property( property => property.Nombre ).IsRequired( true );
@@ -22,6 +23,14 @@ internal sealed class UserConfiguration
             .IsRequired( true );
 
         builder.Property( property => property.Rol ).IsRequired( true );
+=======
+        builder.ToTable( "Users" );
+        builder.HasKey( key => key.Id );
+        builder.Property( property => property.FirstName ).IsRequired( true );
+        builder.Property( property => property.SecondName ).IsRequired( false );
+        builder.Property( property => property.SurName ).IsRequired( true );
+        builder.Property( property => property.SecondSurName ).IsRequired( false );
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
         builder.Property( property => property.Enabled );
     }
 }

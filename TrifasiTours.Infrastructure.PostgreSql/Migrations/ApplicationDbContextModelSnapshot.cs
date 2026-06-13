@@ -2,8 +2,13 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+<<<<<<< HEAD
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+=======
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 using TrifasiTours.Infrastructure.PostgreSql.Persistence;
 
 #nullable disable
@@ -19,6 +24,7 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
             modelBuilder
                 .HasDefaultSchema("TrifasiToursMS")
                 .HasAnnotation("ProductVersion", "7.0.18")
+<<<<<<< HEAD
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -68,11 +74,17 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
 
                     b.ToTable("Tours", "TrifasiToursMS");
                 });
+=======
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 
             modelBuilder.Entity("TrifasiTours.Domain.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Correo")
@@ -103,12 +115,37 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios", "TrifasiToursMS");
+=======
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SecondSurName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SurName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", "TrifasiToursMS");
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
                 });
 
             modelBuilder.Entity("TrifasiTours.Domain.WeatherForecasts.WeatherForecast", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
@@ -125,6 +162,24 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
 
                     b.Property<int>("TemperatureC")
                         .HasColumnType("int");
+=======
+                        .HasColumnType("uuid");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Summary")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Temperature")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TemperatureC")
+                        .HasColumnType("integer");
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 
                     b.HasKey("Id");
 
@@ -135,6 +190,7 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedByUser")
@@ -154,11 +210,33 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
 
                     b.Property<string>("Proccess")
                         .HasColumnType("nvarchar(max)");
+=======
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CreatedByUser")
+                        .HasColumnType("text");
+
+                    b.Property<DateOnly?>("CreatedDate")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastModifiedByUser")
+                        .HasColumnType("text");
+
+                    b.Property<DateOnly?>("LastModifiedDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Proccess")
+                        .HasColumnType("text");
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 
                     b.HasKey("Id");
 
                     b.ToTable("WeatherForecastsHistories", "TrifasiToursMS");
                 });
+<<<<<<< HEAD
 
             modelBuilder.Entity("TrifasiTours.Domain.Tours.Tour", b =>
                 {
@@ -170,6 +248,8 @@ namespace TrifasiTours.Infrastructure.PostgreSql.Migrations
 
                     b.Navigation("GuiaTuristico");
                 });
+=======
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 #pragma warning restore 612, 618
         }
     }

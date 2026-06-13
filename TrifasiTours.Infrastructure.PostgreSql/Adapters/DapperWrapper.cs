@@ -2,7 +2,11 @@
 using TrifasiTours.Domain.Constants;
 using TrifasiTours.Domain.Ports;
 using TrifasiTours.Infrastructure.PostgreSql.Exceptions;
+<<<<<<< HEAD
 using Microsoft.Data.SqlClient;
+=======
+using Npgsql;
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 using System.ComponentModel;
 using System.Data;
 using System.Globalization;
@@ -56,7 +60,11 @@ internal class DapperWrapper : IQueryWrapper {
 
             return await _connection.QuerySingleOrDefaultAsync<T>( query, parameters ) ?? default!;
         }
+<<<<<<< HEAD
         catch (SqlException ex) {
+=======
+        catch (PostgresException ex) {
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
             throw new TimeoutErrorException( ex.Message, ex.InnerException! );
         }
     }

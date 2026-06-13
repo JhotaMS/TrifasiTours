@@ -9,14 +9,21 @@
 		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="EFCore.NamingConventions" Version="7.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
+<<<<<<< HEAD
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+=======
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.18">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+<<<<<<< HEAD
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.18" />
+=======
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
 	</ItemGroup>
 	<PropertyGroup>
 		<GenerateMSBuildEditorConfigFile>false</GenerateMSBuildEditorConfigFile>

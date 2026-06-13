@@ -15,7 +15,11 @@ public class PersistenceContextFactory : IDesignTimeDbContextFactory<Application
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
         string database = Config.GetConnectionString( "ConnectionString" ) ?? string.Empty;
+<<<<<<< HEAD
         optionsBuilder.UseSqlServer( database, sqlopts =>
+=======
+        optionsBuilder.UseNpgsql( database, sqlopts =>
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
         {
             sqlopts.MigrationsHistoryTable( "_MigrationHistory" );
         } );

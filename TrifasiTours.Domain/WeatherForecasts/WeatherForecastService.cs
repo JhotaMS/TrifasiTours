@@ -34,7 +34,11 @@ public class WeatherForecastService(
         return Enumerable
             .Range(1, 5)
             .Select(index => WeatherForecast.Create(
+<<<<<<< HEAD
                 DateTime.Now.AddDays(index),
+=======
+                DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+>>>>>>> b243eb6922b40ba1a3682b834937a64a90a5f993
                 Random.Shared.Next(-20, 55),
                 sumaries[Random.Shared.Next(sumaries.Length)]
             )).ToArray();
